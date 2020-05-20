@@ -3,13 +3,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import enemies.Enemy;
 
-public class Defensive implements Strategy {
+public class Survival implements Strategy {
 	public void execute(Enemy enemy) {
 		int action = ThreadLocalRandom.current().nextInt(0, 51);
-		
+
 		if      (action <= 8)  enemy.doAttack(); // 8/50
 		else if (action <= 16) enemy.doReload(); // 8/50
-		else if (action <= 24) enemy.doRevive(); // 8/50
-		else                   enemy.doDefend(); // 26/50
+		else if (action <= 28) enemy.doDefend(); // 12/50
+		else                   enemy.doRevive(); // 22/50
 	}
 }
