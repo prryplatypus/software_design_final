@@ -1,10 +1,10 @@
 package strategies;
 import java.util.concurrent.ThreadLocalRandom;
 
-import enemies.Enemy;
+import players.Player;
 
 public class Agressive implements Strategy {
-	public void execute(Enemy enemy) {
+	public void execute(Player enemy) {
 		int action = ThreadLocalRandom.current().nextInt(0, 51);
 		
 		if      (action <= 8)  enemy.doDefend(); // 8/50

@@ -1,7 +1,7 @@
 package strategies;
 
-import enemies.Enemy;
+import players.Player;
 
 public interface Strategy {
-	void execute(Enemy enemy);
+	void execute(Player enemy);
 }
