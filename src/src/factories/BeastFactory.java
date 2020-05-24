@@ -1,10 +1,9 @@
 package factories;
 
-import players.Player;
+public class BeastFactory implements EnemyFactory {
 
-public class BeastFactory extends Player implements EnemyFactory {
-
-	public void createEnemy() {
+	public Enemy createEnemy() {
+		return new Beast();
 		
 	}
 

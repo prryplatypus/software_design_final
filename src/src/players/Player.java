@@ -1,16 +1,12 @@
 package players;
 
-public abstract class Player {
-	private int health;
-	private int strength;
-	private int endurance;
-	private int speed;
+public interface Player {
+	public int health;
+	public int strength;
+	public int endurance;
+	public int speed;
 	
-	void Attack() {
-		
-	}
+	void Attack();
 	
-	void Defend() {
-		
-	}
+	void Defend();
 }
