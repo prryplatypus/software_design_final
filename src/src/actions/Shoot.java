@@ -1,13 +1,22 @@
 package actions;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import players.Player;
 
 public class Shoot implements Action {
-
+	
 	@Override
-	public void execute(Player current, Player other) {
-		// TODO Auto-generated method stub
-
+	public void executeOn(Player player) {
+		int attack = ThreadLocalRandom.current().nextInt(1, Player.MAX_STRENGTH + 1 - player.GetStrength());
+		
+		// No puede perder más vidas de las que tiene
+		if (player.GetHealth() < attack) {
+			attack = player.GetHealth();
+		}
+		
+		player.RemoveHealth(attack);
+		System.out.println(((player.IsUser()) ? "You have" : "Your enemy has") + " lost " + attack + ((attack > 1) ? " lifes" : " life") + " as a result of the attack.");
 	}
-
+	
 }

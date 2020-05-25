@@ -4,12 +4,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import players.Player;
 
 public class Survival implements Strategy {
-	public void execute(Player enemy) {
-		int action = ThreadLocalRandom.current().nextInt(0, 51);
-
-		if      (action <= 8)  enemy.doAttack(); // 8/50
-		else if (action <= 16) enemy.doReload(); // 8/50
-		else if (action <= 28) enemy.doDefend(); // 12/50
-		else                   enemy.doRevive(); // 22/50
+	public void executeStrategy(Player player) {
+		int action = ThreadLocalRandom.current().nextInt(1, 41);
+		
+		if      (action <= 10)  player.Attack(); // 10/40
+		else if (action <= 20)  player.Reload(); // 10/40
+		else                    player.Revive(); // 20/40
 	}
 }

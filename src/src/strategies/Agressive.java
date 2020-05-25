@@ -4,12 +4,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import players.Player;
 
 public class Agressive implements Strategy {
-	public void execute(Player enemy) {
-		int action = ThreadLocalRandom.current().nextInt(0, 51);
+	public void executeStrategy(Player player) {
+		int action = ThreadLocalRandom.current().nextInt(1, 41);
 		
-		if      (action <= 8)  enemy.doDefend(); // 8/50
-		else if (action <= 16) enemy.doRevive(); // 8/50
-		else if (action <= 29) enemy.doReload(); // 12/50
-		else                   enemy.doAttack(); // 22/50
+		if      (action <= 10)  player.Revive(); // 10/40
+		else if (action <= 20)  player.Reload(); // 10/40
+		else                    player.Attack(); // 20/40
 	}
 }
