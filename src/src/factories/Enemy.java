@@ -8,6 +8,15 @@ public abstract class Enemy extends Player {
 		
 	}
 	
+	public void decideNext() {
+		getHealth();	// Obtener la salud de él mismo
+		getPlayerHealth(); // Obtener la salud de el jugador
+		
+	}
+	
+	public abstract void getHealth();
+	public abstract void getPlayerHealth();
+	
 	@Override
 	public void Attack() {
 		// TODO Auto-generated method stub
