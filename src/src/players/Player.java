@@ -52,4 +52,8 @@ public abstract class Player {
 	{
 		return endurance;
 	}
+	public void Defend() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,5 +1,5 @@
 package factories;
 
 public interface EnemyFactory {
-	public Enemy createEnemy();
+	public Beast createBeast();
 }

@@ -1,6 +1,9 @@
 package factories;
 
-public class Beast implements Enemy {
+public abstract class Beast extends Enemy {
+
+	public Beast() {
+	}
 
 	@Override
 	public void Attack() {
