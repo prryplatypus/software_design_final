@@ -1,7 +1,7 @@
 package strategies;
 
-import players.Player;
+import actions.Action;
 
 public interface Strategy {
-	void executeStrategy(Player player);
+	Action getAction();
 }

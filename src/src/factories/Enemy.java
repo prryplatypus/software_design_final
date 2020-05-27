@@ -1,40 +1,54 @@
 package factories;
+import actions.Action;
+import actions.EnchancedShoot;
+import actions.Shoot;
+import actions.EnchancedReload;
+import actions.Reload;
+import actions.EnchancedRevival;
+import actions.Revival;
 import players.Player;
+import strategies.Strategy;
 
 
 public abstract class Enemy extends Player {
+	
+	protected Strategy strategy;
 
-	public Enemy() {
-		
+	public Enemy(Strategy strategy, int health, int strength, int endurance, int ammunition, String name) {
+		super(health, strength, endurance, ammunition, name, false);
+		this.strategy = strategy;
 	}
 	
-	public void decideNext() {
-		getHealth();	// Obtener la salud de él mismo
-		getPlayerHealth(); // Obtener la salud de el jugador
-		
+	public void DoAction() {
+		if(!this.hasEnoughHealth()) {
+			System.out.println("Too little health, reviving...");
+			this.Revive();
+		} else {
+			this.selectAction();
+		}
 	}
 	
-	public abstract void getHealth();
-	public abstract void getPlayerHealth();
+	public boolean hasEnoughHealth() {
+		return this.health > ((Player.MAX_HEALTH / 100) * 5);
+	}
 	
-	@Override
-	public void Attack() {
-		// TODO Auto-generated method stub
+	public Action selectAction() {
+		Action actionDecided = this.strategy.getAction();
+		while (!isValidAction(actionDecided)) {
+			actionDecided = this.strategy.getAction();
+		}
+		if (actionDecided instanceof Shoot && enchancedAction()) {
+			return new EnchancedShoot(actionDecided);
+		} else if (actionDecided instanceof Reload && enchancedAction()) {
+			return new EnchancedReload(actionDecided);
+		} else if (actionDecided instanceof Revival && enchancedAction()) {
+			return new EnchancedRevival(actionDecided);
+		}
+		return actionDecided;
 	}
-
-	@Override
-	public void Defend() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void Reload() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void Revive() {
-		// TODO Auto-generated method stub
-	}
+	
+	public abstract boolean isValidAction(Action action);
+	
+	public abstract boolean enchancedAction();
 
 }

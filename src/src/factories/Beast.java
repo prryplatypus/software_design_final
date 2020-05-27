@@ -1,19 +1,21 @@
 package factories;
 
+import java.util.concurrent.ThreadLocalRandom;
+
+import strategies.Agressive;
+
 public abstract class Beast extends Enemy {
-
-	public Beast() {
+	
+	public Beast(int health, int strength, int endurance, int ammunition, String name) {
+		super(new Agressive(), health, strength, endurance, ammunition, name);
 	}
 
-	@Override
-	public void Attack() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Defend() {
-		// TODO Auto-generated method stub
+	public boolean enchancedAction() {
+		int prob = ThreadLocalRandom.current().nextInt(1, 101);
+		if (prob < 20) {
+			return true;
+		} 
+		return false;
 		
 	}
 	
