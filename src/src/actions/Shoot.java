@@ -7,7 +7,12 @@ import players.Player;
 public class Shoot implements Action {
 	
 	@Override
-	public void executeOn(Player player) {
+	public String GetType() {
+		return "Attack";
+	}
+	
+	@Override
+	public void ExecuteOn(Player player) {
 		int attack = ThreadLocalRandom.current().nextInt(1, Player.MAX_STRENGTH + 1 - player.GetStrength());
 		
 		// No puede perder más vidas de las que tiene

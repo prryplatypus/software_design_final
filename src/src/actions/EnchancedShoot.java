@@ -9,9 +9,13 @@ public class EnchancedShoot extends ActionEnchancer {
 	public EnchancedShoot(Action action) {
 		super(action);
 	}
+	
+	public String GetType() {
+		return action.GetType();
+	}
 
-	public void executeOn(Player player) {
-		action.executeOn(player);
+	public void ExecuteOn(Player player) {
+		action.ExecuteOn(player);
 		int extra_attack = ThreadLocalRandom.current().nextInt(0, Player.MAX_STRENGTH + 1 - player.GetStrength());
 		
 		if (player.GetHealth() < extra_attack) {

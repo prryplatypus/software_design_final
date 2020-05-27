@@ -9,9 +9,13 @@ public class EnchancedRevival extends ActionEnchancer {
 	public EnchancedRevival(Action action) {
 		super(action);
 	}
+	
+	public String GetType() {
+		return action.GetType();
+	}
 
-	public void executeOn(Player player) {
-		action.executeOn(player);
+	public void ExecuteOn(Player player) {
+		action.ExecuteOn(player);
 		int gain = ThreadLocalRandom.current().nextInt(0, player.GetEndurance() + 1);
 		
 		// No puede terminar con más vidas que el máximo de vidas posible

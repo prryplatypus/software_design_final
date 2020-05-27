@@ -5,9 +5,14 @@ import java.util.concurrent.ThreadLocalRandom;
 import players.Player;
 
 public class Revival implements Action {
+
+	@Override
+	public String GetType() {
+		return "Revival";
+	}
 	
 	@Override
-	public void executeOn(Player player) {
+	public void ExecuteOn(Player player) {
 		int gain = ThreadLocalRandom.current().nextInt(1, player.GetEndurance() + 1);
 		
 		// No puede terminar con más vidas que el máximo de vidas posible
@@ -18,5 +23,5 @@ public class Revival implements Action {
 		player.AddHealth(gain);
 		System.out.println(((player.IsUser()) ? "You have" : "Your enemy has") + " gained " + gain + ((gain > 1) ? " lifes" : " life") + " as a result of the revival.");
 	}
-	
+
 }

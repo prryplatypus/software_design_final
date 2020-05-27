@@ -10,7 +10,8 @@ public abstract class Player {
 	protected int strength;    	// The greater this is, the smaller the life loss can be
 	protected int endurance;   	// The greater this is, the greater the life gain can be
 	protected int ammunition;	// Recommended starting with 3-5. When 0, player will have to reload to attack
-	
+
+	public abstract String SelectAction(); // If it's the user it will get input. If it's not user, it will ask the strategy what to do next
 	public abstract void Attack();
 	public abstract void Reload();
 	public abstract void Revive();
@@ -43,17 +44,15 @@ public abstract class Player {
 		ammunition -= remove;
 	}
 	
-	public int GetStrength()
-	{
+	public int GetStrength() {
 		return strength;
 	}
 	
-	public int GetEndurance()
-	{
+	public int GetEndurance() {
 		return endurance;
 	}
+	
 	public void Defend() {
 		// TODO Auto-generated method stub
-		
 	}
 }

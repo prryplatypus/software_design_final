@@ -8,8 +8,12 @@ public abstract class ActionEnchancer implements Action {
 	public ActionEnchancer(Action action){
 	   this.action = action;
 	}
+	
+	public String GetType() {
+		return action.GetType();
+	}
 
-	public void executeOn(Player player) {
-	   action.executeOn(player);
+	public void ExecuteOn(Player player) {
+	   action.ExecuteOn(player);
 	}
 }
