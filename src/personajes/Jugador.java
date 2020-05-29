@@ -1,7 +1,6 @@
 package personajes;
 
 import acciones.Accion;
-import acciones.Evasion;
 
 public class Jugador extends Personaje {
 

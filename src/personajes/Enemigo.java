@@ -10,9 +10,9 @@ public abstract class Enemigo extends Personaje {
 
 	private Estrategia estrategia;
 	
-	protected abstract Boolean deberiaAtacar(Personaje enemigo);
-	protected abstract Boolean deberiaDefender(Personaje enemigo);
-	protected abstract Boolean deberiaEvadir(Personaje enemigo);
+	protected abstract Boolean deberiaAtacar();
+	protected abstract Boolean deberiaDefender();
+	protected abstract Boolean deberiaEvadir();
 	
 	public Enemigo(String nombre, int velocidad, int defensa, int ataque, Estrategia estrategia) {
 		super(nombre, false, velocidad, defensa, ataque);
@@ -24,13 +24,13 @@ public abstract class Enemigo extends Personaje {
 	}
 	
 	public Accion getSiguienteAccion(Personaje enemigo) {
-		if (this.deberiaAtacar(enemigo)) {
+		if (this.deberiaAtacar()) {
 			return this.getAtaque(enemigo);
 		}
-		else if (this.deberiaDefender(enemigo)) {
+		else if (this.deberiaDefender()) {
 			return this.getDefensa(this);
 		}
-		else if (this.deberiaEvadir(enemigo)){
+		else if (this.deberiaEvadir()){
 			return this.getEvasion(this);
 		}
 		else {

@@ -1,5 +1,9 @@
 package personajes;
 
+import estado.Cansado;
+
+import estado.EnForma;
+import estado.Herido;
 import estrategias.Agresiva;
 
 public class BoxeadorViolento extends Enemigo {
@@ -11,21 +15,24 @@ public class BoxeadorViolento extends Enemigo {
 	}
 
 	@Override
-	protected Boolean deberiaAtacar(Personaje enemigo) {
-		// TODO Auto-generated method stub
-		return null;
+	protected Boolean deberiaAtacar() {
+		if (this.getEstado() instanceof EnForma || this.getEstado() instanceof Cansado || (this.getEstado() instanceof Herido && this.getVidas() > Personaje.MAX_VIDAS * 0.4)) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	protected Boolean deberiaDefender(Personaje enemigo) {
-		// TODO Auto-generated method stub
-		return null;
+	protected Boolean deberiaDefender() {
+		if (this.getEstado() instanceof Herido && this.getVidas() <= Personaje.MAX_VIDAS * 0.4) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	protected Boolean deberiaEvadir(Personaje enemigo) {
-		// TODO Auto-generated method stub
-		return null;
+	protected Boolean deberiaEvadir() {
+		return false;
 	}
 
 }
