@@ -24,6 +24,7 @@ public abstract class Enemigo extends Personaje {
 	}
 	
 	public Accion getSiguienteAccion(Personaje enemigo) {
+		// Primero guardar Accion en una variable, luego cambiar Estado si es necesario y por último devolver la Accion guardada
 		if (this.deberiaAtacar()) {
 			return this.getAtaque(enemigo);
 		}

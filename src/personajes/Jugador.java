@@ -11,6 +11,7 @@ public class Jugador extends Personaje {
 	@Override
 	public Accion getSiguienteAccion(Personaje enemigo) {
 		// TODO Auto-generated method stub
+		// Primero guardar Accion en una variable, luego cambiar Estado si es necesario y por último devolver la Accion guardada
 		return null;
 	}
 

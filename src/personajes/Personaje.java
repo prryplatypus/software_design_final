@@ -21,7 +21,6 @@ public abstract class Personaje {
 	public final static int MAX_ATAQUE    = 20;
 	public final static int MAX_VIDAS     = 100;
 
-	protected int ultimo_cambio_vidas = 0;
 	protected int velocidad;
 	protected int defensa;
 	protected int ataque;
@@ -69,11 +68,6 @@ public abstract class Personaje {
 	
 	public void cambiarVidas(int cambio) {
 		this.vidas += cambio;
-		this.ultimo_cambio_vidas = cambio;
-	}
-	
-	public int getUltimoCambioVidas() {
-		return this.ultimo_cambio_vidas;
 	}
 	
 	public Estado getEstado() {
