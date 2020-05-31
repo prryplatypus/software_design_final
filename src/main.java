@@ -1,6 +1,6 @@
 import personajes.Personaje;
 import factorias.FactoriaEnemigos;
-import personajes.Enemigo;
+import factorias.FactoriaPersonajes;
 import personajes.Jugador;
 
 import java.util.Random;
@@ -15,15 +15,15 @@ public class main {
 	static Scanner scanner = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		FactoriaEnemigos enemigos = new FactoriaEnemigos();
+		FactoriaPersonajes enemigos = new FactoriaEnemigos();
 		Jugador jugador  = Jugador.crearJugador(scanner);
 		Random rand = new Random();
-		Enemigo enemigo;
+		Personaje enemigo;
 
 		/**
 		 * MUNDO 1
 		 */
-		enemigo = enemigos.getEnemigo(
+		enemigo = enemigos.getPersonaje(
 				Personaje.MAX_VELOCIDAD/2,
 				Personaje.MAX_DEFENSA,
 				Personaje.MAX_ATAQUE/3
@@ -34,7 +34,7 @@ public class main {
 		/**
 		 * MUNDO 2
 		 */
-		enemigo = enemigos.getEnemigo(
+		enemigo = enemigos.getPersonaje(
 				Personaje.MAX_VELOCIDAD,
 				Personaje.MAX_DEFENSA/2,
 				Personaje.MAX_ATAQUE/2
@@ -51,33 +51,39 @@ public class main {
 		System.out.println("¡Bienvenid@ al " + mundo + "! En esta ocasion luchan " + primero.getNombre() + " y " + segundo.getNombre());
 		System.out.println(primero.getNombre() + " comienza la lucha.");
 		
-		esperar(5);
-		mostrarPersonajes(primero, segundo);
 		esperar(3);
+		mostrarPersonajes(primero, segundo);
+		esperar(2);
 		while (primero.getVidas() > 0 && segundo.getVidas() > 0) {
 			accion_seleccionada = primero.getSiguienteAccion();
+			if (! primero.esJugador()) esperar(3);
 			if (accion_seleccionada.esAtaque()) {
 				segundo.cambiarVidas(calculador.getCambioVidasPersonaje(segundo, accion_seleccionada));
 				segundo.actualizarEstado(accion_seleccionada);
+				primero.cambiarVidas(0);
 				if (segundo.getVidas() <= 0) break;
 			}
 			else if (accion_seleccionada.esDefensa() || accion_seleccionada.esEvasion()){
 				primero.cambiarVidas(calculador.getCambioVidasPersonaje(primero, accion_seleccionada));
 				primero.actualizarEstado(accion_seleccionada);
+				segundo.cambiarVidas(0);
 			}
 			esperar(5);
 			mostrarPersonajes(primero, segundo);
 			esperar(3);
 			
 			accion_seleccionada = segundo.getSiguienteAccion();
+			if (! segundo.esJugador()) esperar(3);
 			if (accion_seleccionada.esAtaque()) {
 				primero.cambiarVidas(calculador.getCambioVidasPersonaje(primero, accion_seleccionada));
 				primero.actualizarEstado(accion_seleccionada);
+				segundo.cambiarVidas(0);
 				if (primero.getVidas() <= 0) break;
 			}
 			else if (accion_seleccionada.esDefensa() || accion_seleccionada.esEvasion()){
 				segundo.cambiarVidas(calculador.getCambioVidasPersonaje(segundo, accion_seleccionada));
 				segundo.actualizarEstado(accion_seleccionada);
+				primero.cambiarVidas(0);
 			}
 			esperar(5);
 			mostrarPersonajes(primero, segundo);

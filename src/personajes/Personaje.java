@@ -3,6 +3,7 @@ package personajes;
 import java.util.concurrent.ThreadLocalRandom;
 
 import acciones.Accion;
+import acciones.AccionMagnificada;
 import acciones.AtaqueBomba;
 import acciones.AtaqueBombaNuclear;
 import acciones.AtaqueEspada;
@@ -11,11 +12,13 @@ import acciones.Defensa;
 import acciones.DefensaReforzada;
 import acciones.Evasion;
 import acciones.EvasionRapida;
+import estado.Cansado;
+import estado.Corriendo;
 import estado.EnForma;
 import estado.Estado;
+import estado.Herido;
 
 public abstract class Personaje {
-	// Constantes que se usan para tomar decisiones fuera de esta clase
 	public final static int MAX_VELOCIDAD = 20;
 	public final static int MAX_DEFENSA   = 20;
 	public final static int MAX_ATAQUE    = 20;
@@ -41,12 +44,6 @@ public abstract class Personaje {
 		this.defensa    = defensa;
 		this.ataque     = ataque;
 		this.vidas      = Personaje.MAX_VIDAS;
-	}
-	
-	public void resetear() {
-		this.vidas            = Personaje.MAX_VIDAS;
-		this.estado           = new EnForma();
-		this.ult_cambio_vidas = 0;
 	}
 	
 	public String  getNombre() {
@@ -100,9 +97,19 @@ public abstract class Personaje {
 	}
 	
 	public void actualizarEstado(Accion accion) {
-		// Hacer algo dependiendo del estado en el que esté, el tipo de acción y el último cambio de vidas
-		
-		// this.estado = estado;
+		if ((accion.esAtaque() && accion instanceof AccionMagnificada) || this.getVidas() < Personaje.MAX_VIDAS * 0.15) {
+			this.estado = new Herido();
+		} 
+		else if (accion.esEvasion()) {
+			if (this.getEstado() instanceof Corriendo || accion instanceof AccionMagnificada) {
+				this.estado = new Cansado();
+			} else {
+				this.estado = new Corriendo();
+			}
+		}
+		else {
+			this.estado = new EnForma();
+		}
 	}
 	
 	public void mostrarEstadisticas() {
@@ -113,7 +120,7 @@ public abstract class Personaje {
 	
 	protected Accion getAtaque() {
 		Accion accion = (ThreadLocalRandom.current().nextInt(1, 5) == 1) ? new AtaqueBomba() : new AtaqueEspada(); // 25% probabilidad bomba
-		if (this.getAtaqueMax() > Personaje.MAX_ATAQUE * 0.75) { // Si tiene suficiente fuerza
+		if (this.getAtaqueMax() > Personaje.MAX_ATAQUE * 0.5) { // Si tiene suficiente fuerza
 			if      (accion instanceof AtaqueBomba)  accion = new AtaqueBombaNuclear(accion);
 			else if (accion instanceof AtaqueEspada) accion = new AtaqueEspadaMagnificado(accion);
 		}	
@@ -122,7 +129,7 @@ public abstract class Personaje {
 	
 	protected Accion getDefensa() {
 		Accion accion = new Defensa();
-		if (this.getDefensaMax() > Personaje.MAX_DEFENSA * 0.75) {
+		if (this.getDefensaMax() > Personaje.MAX_DEFENSA * 0.5) {
 			if (accion instanceof Defensa) accion = new DefensaReforzada(accion);
 		}
 		return accion;
@@ -130,7 +137,7 @@ public abstract class Personaje {
 	
 	protected Accion getEvasion() {
 		Accion accion = new Evasion();
-		if (this.getVelocidadMax() > Personaje.MAX_VELOCIDAD * 0.75) {
+		if (this.getVelocidadMax() > Personaje.MAX_VELOCIDAD * 0.5) {
 			if (accion instanceof Evasion) accion = new EvasionRapida(accion);
 		}
 		return accion;
