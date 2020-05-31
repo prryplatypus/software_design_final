@@ -1,5 +1,7 @@
 package personajes;
 
+import java.util.concurrent.TimeUnit;
+
 import acciones.Accion;
 import estrategias.Agresiva;
 import estrategias.Defensiva;
@@ -24,7 +26,8 @@ public abstract class Enemigo extends Personaje {
 	}
 	
 	public Accion getSiguienteAccion() {
-		// Primero guardar Accion en una variable, luego cambiar Estado si es necesario y por último devolver la Accion guardada
+		System.out.println(this.getNombre() + " esta pensando su siguiente accion...");
+		
 		if (this.deberiaAtacar()) {
 			return this.getAtaque();
 		}

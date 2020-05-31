@@ -43,6 +43,12 @@ public abstract class Personaje {
 		this.vidas      = Personaje.MAX_VIDAS;
 	}
 	
+	public void resetear() {
+		this.vidas            = Personaje.MAX_VIDAS;
+		this.estado           = new EnForma();
+		this.ult_cambio_vidas = 0;
+	}
+	
 	public String  getNombre() {
 		return this.nombre;
 	}
@@ -79,7 +85,7 @@ public abstract class Personaje {
 	
 	private void mostrarCambioVidas() {
 		if (this.getUltimoCambioVidas() < 0) {
-			System.out.println(this.getNombre() + " ha perdido " + this.getUltimoCambioVidas() + " vidas.");
+			System.out.println(this.getNombre() + " ha perdido " + -this.getUltimoCambioVidas() + " vidas.");
 		}
 		else if (this.getUltimoCambioVidas() > 0) {
 			System.out.println(this.getNombre() + " ha recuperado " + this.getUltimoCambioVidas() + " vidas.");	
@@ -93,8 +99,10 @@ public abstract class Personaje {
 		return this.estado;
 	}
 	
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void actualizarEstado(Accion accion) {
+		// Hacer algo dependiendo del estado en el que esté, el tipo de acción y el último cambio de vidas
+		
+		// this.estado = estado;
 	}
 	
 	public void mostrarEstadisticas() {

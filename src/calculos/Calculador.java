@@ -37,12 +37,12 @@ public class Calculador {
 				return 0;
 			} else {
 				int puede_ganar = -personaje.getUltimoCambioVidas();
-				System.out.println("En el ultimo turno ha perdido " + puede_ganar + "vida" + ((puede_ganar > 0) ? "s" : "") + ".");
+				System.out.println("En el ultimo turno ha perdido " + puede_ganar + " vida" + ((puede_ganar > 0) ? "s" : "") + ".");
 				if (accion.getCambioVidas() > puede_ganar) return puede_ganar;
 			}
 		} else {
 			int puede_perder = -personaje.getVidas();
-			if (accion.getCambioVidas() > puede_perder) return puede_perder;
+			if (accion.getCambioVidas() < puede_perder) return puede_perder;
 		}
 		
 		return accion.getCambioVidas();
