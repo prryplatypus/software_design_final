@@ -1,9 +1,9 @@
 package acciones;
 
-import personajes.Personaje;
-
 public interface Accion {
 	public String getNombre();
-	public Personaje getVictima();
 	public int getCambioVidas(); // Cuánto cambia las vidas
+	public Boolean esAtaque();
+	public Boolean esDefensa();
+	public Boolean esEvasion();
 }

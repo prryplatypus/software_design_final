@@ -13,40 +13,38 @@ public class Calculador {
 	   return calculador;
 	}
 
-	public int getCambioVidasTotalPersonaje(Personaje personaje, Accion accion1, Accion accion2){
-		int cambio_vidas;
-		if (! (esVictima(personaje, accion1) || esVictima(personaje, accion2))) {
-			cambio_vidas = 0;
+	public int getCambioVidasPersonaje(Personaje personaje, Accion accion){
+		this.showMensajeAccion(personaje, accion);
+		return this.calcularCambioVidas(personaje, accion);
+	}
+		
+	public void showMensajeAccion(Personaje personaje, Accion accion) {
+		if (accion.esAtaque()) {
+			System.out.print(personaje.getNombre() + " ha sido atacado con: " + accion.getNombre() + ". ");
 		}
-		else if (accion1.getVictima() == accion2.getVictima()) {
-			cambio_vidas = getMaxCambioVidas(personaje, accion1.getCambioVidas() + accion2.getCambioVidas());
+		else if (accion.esDefensa()) {
+			System.out.print(personaje.getNombre() + " se ha defendido con: " + accion.getNombre() + ". ");
 		}
-		else if (accion1.getVictima() == personaje) {
-			cambio_vidas = getMaxCambioVidas(personaje, accion1.getCambioVidas());
+		else if (accion.esEvasion()) {
+			System.out.print(personaje.getNombre() + " ha evadido el ataque con: " + accion.getNombre() + ". ");
 		}
-		else {
-			cambio_vidas = getMaxCambioVidas(personaje, accion2.getCambioVidas());
+	}
+	
+	private int calcularCambioVidas(Personaje personaje, Accion accion) {
+		if (accion.esDefensa() || accion.esEvasion()) {
+			if (personaje.getUltimoCambioVidas() >= 0) {
+				System.out.println("En el ultimo turno no ha perdido ninguna vida.");
+				return 0;
+			} else {
+				int puede_ganar = -personaje.getUltimoCambioVidas();
+				System.out.println("En el ultimo turno ha perdido " + puede_ganar + "vida" + ((puede_ganar > 0) ? "s" : "") + ".");
+				if (accion.getCambioVidas() > puede_ganar) return puede_ganar;
+			}
+		} else {
+			int puede_perder = -personaje.getVidas();
+			if (accion.getCambioVidas() > puede_perder) return puede_perder;
 		}
 		
-		return cambio_vidas;
-	}
-	
-	public Boolean esAtacado(Personaje personaje, Accion accion1, Accion accion2) {
-		return (esVictima(personaje, accion1) || esVictima(personaje, accion2))
-			   && (esAtaque(accion1) || esAtaque(accion2));
-	}
-	
-	public Boolean esVictima(Personaje personaje, Accion accion) {
-		return accion.getVictima() == personaje;
-	}
-	
-	public Boolean esAtaque(Accion accion) {
-		return accion.getCambioVidas() < 0;
-	}
-	
-	protected int getMaxCambioVidas(Personaje personaje, int cambio_deseado) {
-		if (cambio_deseado >= 0) return 0;
-		else if (personaje.getVidas() + cambio_deseado < 0) return personaje.getVidas();
-		else return cambio_deseado;
+		return accion.getCambioVidas();
 	}
 }

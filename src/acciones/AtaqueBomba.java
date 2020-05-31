@@ -1,15 +1,7 @@
 package acciones;
 
-import personajes.Personaje;
-
 public class AtaqueBomba implements Accion {
-	
-	protected Personaje victima;
-	
-	public AtaqueBomba(Personaje victima) {
-		this.victima = victima;
-	}
-	
+		
 	@Override
 	public String getNombre() {
 		return "Ataque con bomba";
@@ -19,10 +11,20 @@ public class AtaqueBomba implements Accion {
 	public int getCambioVidas() {
 		return -15;
 	}
-
+	
 	@Override
-	public Personaje getVictima() {
-		return this.victima;
+	public Boolean esAtaque() {
+		return true;
+	}
+	
+	@Override
+	public Boolean esDefensa() {
+		return false;
+	}
+	
+	@Override
+	public Boolean esEvasion() {
+		return false;
 	}
 	
 }

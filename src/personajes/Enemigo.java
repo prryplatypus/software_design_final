@@ -23,21 +23,21 @@ public abstract class Enemigo extends Personaje {
 		return this.estrategia;
 	}
 	
-	public Accion getSiguienteAccion(Personaje enemigo) {
+	public Accion getSiguienteAccion() {
 		// Primero guardar Accion en una variable, luego cambiar Estado si es necesario y por último devolver la Accion guardada
 		if (this.deberiaAtacar()) {
-			return this.getAtaque(enemigo);
+			return this.getAtaque();
 		}
 		else if (this.deberiaDefender()) {
-			return this.getDefensa(this);
+			return this.getDefensa();
 		}
 		else if (this.deberiaEvadir()){
-			return this.getEvasion(this);
+			return this.getEvasion();
 		}
 		else {
-			if      (this.estrategia instanceof Agresiva)  return this.getAtaque(enemigo);
-			else if (this.estrategia instanceof Defensiva) return this.getDefensa(this);
-			else                                           return this.getEvasion(this);
+			if      (this.estrategia instanceof Agresiva)  return this.getAtaque();
+			else if (this.estrategia instanceof Defensiva) return this.getDefensa();
+			else                                           return this.getEvasion();
 		}
 	}
 	

@@ -1,7 +1,5 @@
 package acciones;
 
-import personajes.Personaje;
-
 public class EvasionRapida extends AccionMagnificada {
 
 	public EvasionRapida(Accion accion_base) {
@@ -16,11 +14,6 @@ public class EvasionRapida extends AccionMagnificada {
 	@Override
 	public int getCambioVidas() {
 		return 2 * accion_base.getCambioVidas();
-	}
-
-	@Override
-	public Personaje getVictima() {
-		return accion_base.getVictima();
 	}
 
 }
